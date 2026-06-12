@@ -14,13 +14,18 @@ npm start
 
 Open http://localhost:4200
 
+## Time spent
+
+Approximately 8 hours, based on the visible implementation and polishing work recorded in this
+repository.
+
 ## Deploy
 
 **Live demo:** https://georgeamalan.github.io/Natural-Cycles/
 
 Hosted on [GitHub Pages](https://pages.github.com/). Pushes to `main` build and deploy via
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (Node 22, `npm ci`, production
-build with `--base-href /Natural-Cycles/`).
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (Node 22, `npm ci`, production build
+with `--base-href /Natural-Cycles/`).
 
 Manual build for the same output:
 
@@ -35,7 +40,7 @@ Output: `dist/onboarding-quiz/browser`
 - **Advanced** → 2 questions → summary
 - **Beginner / intermediate** → quote → interests → follow-up
 - Multiple interests: Design beats Development beats Strategy
-- **Back** clears answers after that step
+- Changing an earlier answer clears answers that are no longer on the updated path
 - Progress is saved in the browser (`nc-onboarding-quiz-state` in localStorage)
 
 Useful paths: `quiz.config.ts` (content), `quiz-engine.ts` (routing), `quiz-state.service.ts`

@@ -24,7 +24,23 @@ function validateScreen(config: QuizConfig, screen: QuizScreen): void {
     throw new Error(`Quiz screen "${screen.id}" requires at least one option`)
   }
 
+  if (
+    screen.progress &&
+    (screen.progress.current < 1 || screen.progress.current > screen.progress.total)
+  ) {
+    throw new Error(`Quiz screen "${screen.id}" has invalid progress`)
+  }
+  if (
+    screen.segmentedProgress &&
+    (screen.segmentedProgress.total < 1 ||
+      screen.segmentedProgress.activeIndex < 0 ||
+      screen.segmentedProgress.activeIndex >= screen.segmentedProgress.total)
+  ) {
+    throw new Error(`Quiz screen "${screen.id}" has invalid segmented progress`)
+  }
+
   validateBranch(config, screen.branch, screen.id)
+  validateBranchOptions(config, screen)
 }
 
 function validateBranch(config: QuizConfig, branch: BranchResolver, screenId: ScreenId): void {
@@ -52,6 +68,32 @@ function validateBranch(config: QuizConfig, branch: BranchResolver, screenId: Sc
       if (!branch.map[priorityId]) {
         throw new Error(`Quiz screen "${screenId}" is missing a target for "${priorityId}"`)
       }
+    }
+  }
+}
+
+function validateBranchOptions(config: QuizConfig, screen: QuizScreen): void {
+  const branch = screen.branch
+  if (branch.type !== 'answer' && branch.type !== 'priority') return
+
+  const question = config.screens[branch.questionId]
+  const optionIds = new Set((question.options ?? []).map(option => option.id))
+
+  if (branch.type === 'answer' && branch.questionId !== screen.id) {
+    throw new Error(`Quiz screen "${screen.id}" must branch from its own answer`)
+  }
+  if (branch.type === 'priority' && question.kind !== 'multi-select') {
+    throw new Error(`Quiz screen "${screen.id}" priority branch requires a multi-select question`)
+  }
+
+  for (const optionId of Object.keys(branch.map)) {
+    if (!optionIds.has(optionId)) {
+      throw new Error(`Quiz screen "${screen.id}" branches from unknown option "${optionId}"`)
+    }
+  }
+  for (const optionId of optionIds) {
+    if (!branch.map[optionId]) {
+      throw new Error(`Quiz screen "${screen.id}" is missing a target for "${optionId}"`)
     }
   }
 }

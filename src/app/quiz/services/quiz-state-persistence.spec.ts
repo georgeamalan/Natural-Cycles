@@ -29,17 +29,50 @@ describe('quiz-state-persistence', () => {
     expect(isValidPersistedState(state, config)).toBe(false)
   })
 
+  it('rejects a current screen that is not the end of the path', () => {
+    const state = {
+      ...createInitialState(config),
+      currentScreenId: 'welcome' as const,
+      path: ['welcome', 'experience-level'] as const,
+    }
+    expect(isValidPersistedState(state, config)).toBe(false)
+  })
+
+  it('rejects paths that do not follow configured branches', () => {
+    const state = {
+      ...createInitialState(config),
+      currentScreenId: 'expertise' as const,
+      path: ['welcome', 'experience-level', 'expertise'] as const,
+      answers: { 'experience-level': 'beginner' },
+      track: 'standard' as const,
+    }
+    expect(isValidPersistedState(state, config)).toBe(false)
+  })
+
+  it('rejects invalid answer option ids', () => {
+    const state = {
+      ...createInitialState(config),
+      currentScreenId: 'inspiration' as const,
+      path: ['welcome', 'experience-level', 'inspiration'] as const,
+      answers: { 'experience-level': 'unknown' },
+      track: 'standard' as const,
+    }
+    expect(isValidPersistedState(state, config)).toBe(false)
+  })
+
   it('loads valid json from storage', () => {
     const state = {
       ...createInitialState(config),
       currentScreenId: 'interests' as const,
       path: ['welcome', 'experience-level', 'inspiration', 'interests'] as const,
-      answers: { 'experience-level': 'beginner' },
+      answers: { 'experience-level': 'beginner', interests: ['design'] },
+      track: 'standard' as const,
     }
 
     const loaded = loadPersistedState(JSON.stringify(state), config)
     expect(loaded.currentScreenId).toBe('interests')
     expect(loaded.answers['experience-level']).toBe('beginner')
+    expect(loaded.answers['interests']).toEqual(['design'])
   })
 
   it('falls back to initial state for malformed json', () => {

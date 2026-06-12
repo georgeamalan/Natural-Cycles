@@ -23,6 +23,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npx oxfmt --check .
+      - run: npm run test:ci
       - run: npm run build -- --base-href /Natural-Cycles/
       - uses: actions/upload-pages-artifact@v3
         with:

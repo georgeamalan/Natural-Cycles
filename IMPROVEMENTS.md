@@ -3,8 +3,8 @@
 ## What I am happy with
 
 The quiz content and routing live in config (`quiz.config.ts` + `quiz-engine.ts`), so adding
-questions or tracks is mostly a data change. State, persistence, and screen components are separated.
-Core logic has unit tests. There is basic accessibility work (keyboard, ARIA, skip link).
+questions or tracks is mostly a data change. State, persistence, and screen components are
+separated. Core logic has unit tests. There is basic accessibility work (keyboard, ARIA, skip link).
 
 That is enough for a case study. A real app would need more around submission, data, and monitoring.
 
@@ -34,13 +34,13 @@ every PR.
 
 ## If the quiz gets much bigger
 
-More questions and expertise tracks do not require a rewrite. The config-driven engine can grow for a
-while. I would add things step by step:
+More questions and expertise tracks do not require a rewrite. The config-driven engine can grow for
+a while. I would add things step by step:
 
 1. **CMS** — let content people edit questions without a code deploy.
 2. **New question types** — sliders, dates, etc. via a small plugin registry instead of new
    components every time.
 3. **Domain split (only when needed)** — if tracks become very different (separate legal copy,
    rules, and outcomes), split quiz flow, profile/recommendations, and submission into clearer
-   modules. Full DDD only makes sense if multiple teams own those areas — not just because there
-   are more questions.
+   modules. Full DDD only makes sense if multiple teams own those areas — not just because there are
+   more questions.
