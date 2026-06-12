@@ -14,7 +14,21 @@ npm start
 
 Open http://localhost:4200
 
+## Deploy
+
 **Live demo:** https://georgeamalan.github.io/Natural-Cycles/
+
+Hosted on [GitHub Pages](https://pages.github.com/). Pushes to `main` build and deploy via
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (Node 22, `npm ci`, production
+build with `--base-href /Natural-Cycles/`).
+
+Manual build for the same output:
+
+```bash
+npm run build -- --base-href /Natural-Cycles/
+```
+
+Output: `dist/onboarding-quiz/browser`
 
 ## How it works
 
