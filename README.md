@@ -14,6 +14,8 @@ npm start
 
 Open http://localhost:4200
 
+**Live demo:** https://georgeamalan.github.io/Natural-Cycles/
+
 ## How it works
 
 - **Advanced** → 2 questions → summary
@@ -29,3 +31,7 @@ Useful paths: `quiz.config.ts` (content), `quiz-engine.ts` (routing), `quiz-stat
 
 Set `webhookUrl` in `src/environments/environment.ts` to your [webhook.site](https://webhook.site)
 inbox. Answers are POSTed on submit.
+
+## Production improvements
+
+See [IMPROVEMENTS.md](./IMPROVEMENTS.md) — what I would change before shipping this in a real app.
