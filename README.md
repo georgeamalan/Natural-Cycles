@@ -29,16 +29,3 @@ Useful paths: `quiz.config.ts` (content), `quiz-engine.ts` (routing), `quiz-stat
 
 Set `webhookUrl` in `src/environments/environment.ts` to your [webhook.site](https://webhook.site)
 inbox. Answers are POSTed on submit.
-
-Submit uses `no-cors` (webhook.site has no CORS headers), so the app can't read the response — check
-webhook.site to confirm the payload arrived. Quotes use dummyjson.com (`quoteApiUrl` in the same
-file).
-
-## Deploy
-
-```bash
-npm run build
-npx netlify deploy --prod --dir=dist/onboarding-quiz/browser
-```
-
-Tests: `npm run test:ci`
