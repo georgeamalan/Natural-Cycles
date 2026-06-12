@@ -1,0 +1,25 @@
+:host {
+  display: inline-flex;
+  line-height: 0;
+  color: var(--nc-color-primary);
+}
+
+.loading-icon {
+  display: block;
+}
+
+.loading-icon--spin {
+  animation: loading-icon-spin 1s linear infinite;
+}
+
+@keyframes loading-icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-icon--spin {
+    animation: none;
+  }
+}

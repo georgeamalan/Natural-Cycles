@@ -1,0 +1,43 @@
+.quote-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-height: var(--nc-size-quote-min-height);
+  padding: var(--nc-space-6) var(--nc-space-4);
+  border-radius: var(--nc-radius-md);
+  background: var(--nc-color-surface-muted);
+  text-align: center;
+
+  blockquote {
+    margin: 0;
+    font: italic 500 0.75rem / 1.45 var(--nc-font-family);
+    color: var(--nc-color-text-secondary);
+  }
+
+  .loader-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nc-space-2);
+    width: 100%;
+    color: var(--nc-color-primary);
+  }
+
+  .loader-row p {
+    margin: 0;
+    font: 500 0.8125rem / 1 var(--nc-font-family);
+    font-style: normal;
+    color: var(--nc-color-primary);
+  }
+
+  .retry {
+    border: none;
+    background: none;
+    color: var(--nc-color-primary);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,34 @@
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nc-space-2);
+
+  app-loading-icon {
+    color: var(--nc-color-text-on-primary);
+  }
+
+  min-height: var(--nc-size-button-height);
+  padding: var(--nc-space-2) var(--nc-space-4);
+  border: none;
+  border-radius: var(--nc-radius-button);
+  background: var(--nc-color-primary);
+  color: var(--nc-color-text-on-primary);
+  font: 600 0.6875rem / 1 var(--nc-font-family);
+  cursor: pointer;
+  transition: background var(--nc-duration-fast) ease;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.muted,
+  &:disabled {
+    background: var(--nc-color-primary-muted);
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled):not(.muted) {
+    background: var(--nc-color-primary-hover);
+  }
+}

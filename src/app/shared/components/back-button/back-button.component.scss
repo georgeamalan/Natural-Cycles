@@ -1,0 +1,17 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nc-space-1);
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: var(--nc-color-text-back);
+  font: 500 0.625rem / 1 var(--nc-font-family);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--nc-color-text-back-hover);
+  }
+}

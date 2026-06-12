@@ -1,0 +1,33 @@
+<a class="skip-link" href="#quiz-main">{{ labels.translate('common.skipToContent') }}</a>
+<main id="quiz-main" class="quiz-page">
+  <app-quiz-card
+    [showError]="showErrorBanner()"
+    [errorMessage]="labels.translate('common.submissionFailed')"
+  >
+    @switch (screen().kind) {
+      @case ('welcome') {
+        <app-welcome-screen [screen]="screen()" />
+      }
+      @case ('single-select') {
+        <app-single-select-screen [screen]="screen()" />
+      }
+      @case ('multi-select') {
+        <app-multi-select-screen [screen]="screen()" />
+      }
+      @case ('inspiration') {
+        <app-inspiration-screen [screen]="screen()" />
+      }
+      @case ('completion') {
+        <app-completion-screen [screen]="screen()" />
+      }
+      @case ('advanced-completion') {
+        <app-advanced-completion-screen [screen]="screen()" />
+      }
+      @default {
+        @if (isDevMode()) {
+          <p class="dev-error">Missing screen component for kind: {{ screen().kind }}</p>
+        }
+      }
+    }
+  </app-quiz-card>
+</main>

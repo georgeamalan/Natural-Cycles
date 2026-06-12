@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --nc-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --nc-color-bg-top: #fdf8fd;
+  --nc-color-bg-bottom: #ebe3ef;
+  --nc-color-surface: #ffffff;
+  --nc-color-surface-muted: #f3f0f0;
+  --nc-color-surface-summary: #f3ebf2;
+  --nc-color-surface-expert: #f5f2f0;
+
+  --nc-color-primary: #700050;
+  --nc-color-primary-hover: #5c0042;
+  --nc-color-primary-muted: #c4a3bc;
+  --nc-color-primary-soft: #faf4f8;
+  --nc-color-primary-tint: #f3ebf2;
+
+  --nc-color-text: #111827;
+  --nc-color-text-secondary: #4b5563;
+  --nc-color-text-muted: #6b7280;
+  --nc-color-text-back: #334155;
+  --nc-color-text-back-hover: #1e293b;
+  --nc-color-text-on-primary: #ffffff;
+
+  --nc-color-border: #e5e7eb;
+  --nc-color-border-strong: #d1d5db;
+
+  --nc-color-success-bg: #f3ebf2;
+  --nc-color-error: #ffffff;
+  --nc-color-error-bg: #dc2626;
+
+  // Spacing — measured from Figma frames (393px wide, 32px page/card gutters)
+  --nc-space-page-x: 32px;
+  --nc-space-1: 4px;
+  --nc-space-2: 8px;
+  --nc-space-3: 12px;
+  --nc-space-4: 16px;
+  --nc-space-5: 20px;
+  --nc-space-6: 24px;
+  --nc-space-7: 32px;
+  --nc-gap-section: 32px;
+  --nc-gap-options: 12px;
+  --nc-duration-fast: 150ms;
+
+  // Radii — each token is meaningfully distinct
+  --nc-radius-card: 28px;
+  --nc-radius-md: 12px;
+  --nc-radius-sm: 8px;
+  --nc-radius-button: 12px;
+
+  --nc-shadow-card: 0 16px 48px rgba(17, 24, 39, 0.1);
+  --nc-space-card: 32px;
+  --nc-max-width: 329px;
+  --nc-min-height-card: 545px;
+  --nc-size-option-min-height: 69px;
+  --nc-size-button-height: 38px;
+  --nc-size-quote-min-height: 194px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  block-size: 100%; // logical: height
+}
+
+body {
+  margin: 0;
+  font-family: var(--nc-font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--nc-color-text);
+  background: linear-gradient(180deg, var(--nc-color-bg-top) 0%, var(--nc-color-bg-bottom) 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--nc-color-primary);
+  outline-offset: 2px;
+}
+
+// ── Shared screen layout ──────────────────────────────────────────────────────
+
+.screen {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--nc-gap-section);
+  inline-size: 100%;
+  min-block-size: 0;
+}
+
+.screen--with-footer {
+  min-block-size: 100%;
+}
+
+.screen--welcome {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: var(--nc-space-4) var(--nc-space-2);
+  gap: var(--nc-space-7);
+}
+
+.screen--completion {
+  gap: var(--nc-gap-section);
+}
+
+// ── Typography ────────────────────────────────────────────────────────────────
+
+.title {
+  margin: 0;
+  font: 700 1.75rem / 1.15 var(--nc-font-family);
+  letter-spacing: -0.025em;
+  color: var(--nc-color-text);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--nc-color-primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+.title--center {
+  text-align: center;
+}
+
+.screen--welcome .title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nc-space-1);
+  font-size: 1.875rem;
+  max-inline-size: 280px;
+}
+
+.subtitle {
+  margin: 0;
+  font: 400 1rem / 1.55 var(--nc-font-family);
+  color: var(--nc-color-text-secondary);
+}
+
+.subtitle--center {
+  text-align: center;
+  max-inline-size: 300px;
+}
+
+.welcome-cta {
+  inline-size: 100%;
+  margin-block-start: var(--nc-space-2);
+}
+
+.progress-label {
+  margin: 0;
+  font: 600 0.875rem / 1.3 var(--nc-font-family);
+  color: var(--nc-color-primary);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nc-gap-options);
+}
+
+.screen-footer {
+  margin-block-start: auto;
+  padding-block-start: var(--nc-space-2);
+}
+
+// ── Completion panels ─────────────────────────────────────────────────────────
+
+.success-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--nc-space-3);
+  padding-block-start: var(--nc-space-1);
+}
+
+.summary-panel {
+  padding: var(--nc-space-5) var(--nc-space-4);
+  border-radius: var(--nc-radius-md);
+  background: var(--nc-color-surface-summary);
+
+  &--expert {
+    background: var(--nc-color-surface-expert);
+  }
+}
+
+.summary-panel__title {
+  display: flex;
+  align-items: center;
+  gap: var(--nc-space-2);
+  margin: 0 0 var(--nc-space-4);
+  color: var(--nc-color-primary);
+  font: 600 0.9375rem / 1 var(--nc-font-family);
+}
+
+.summary-panel__heading {
+  margin: 0 0 var(--nc-space-3);
+  font: 600 1rem / 1.3 var(--nc-font-family);
+  color: var(--nc-color-text);
+}
+
+.summary-panel__intro {
+  margin: 0 0 var(--nc-space-3);
+  font: 400 0.9375rem / 1.55 var(--nc-font-family);
+  color: var(--nc-color-text-secondary);
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nc-space-3);
+}
+
+.summary-item {
+  padding: var(--nc-space-4);
+  border-radius: var(--nc-radius-md);
+  background: var(--nc-color-surface);
+}
+
+.summary-item__label {
+  display: block;
+  margin-block-end: var(--nc-space-1);
+  font: 400 0.8125rem / 1.2 var(--nc-font-family);
+  color: var(--nc-color-text-muted);
+}
+
+.summary-item__value {
+  font: 600 1.0625rem / 1.25 var(--nc-font-family);
+  color: var(--nc-color-text);
+}
+
+.bullet-list {
+  margin: 0;
+  padding-inline-start: var(--nc-space-4);
+  font: 400 0.9375rem / 1.6 var(--nc-font-family);
+  color: var(--nc-color-text-secondary);
+
+  li::marker {
+    color: var(--nc-color-primary);
+  }
+}
+
+// ── Screen transition ─────────────────────────────────────────────────────────
+// Screens fade + slide up on mount. Disabled for users who prefer reduced motion.
+
+@keyframes screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen {
+  animation: screen-enter 0.2s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen {
+    animation: none;
+  }
+}

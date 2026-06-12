@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.segmented-progress {
+  display: grid;
+  gap: var(--nc-space-2);
+  width: 100%;
+  padding-block-start: var(--nc-space-4);
+  border-top: 1px solid var(--nc-color-border);
+}
+
+// Supports up to 8 segments (the quiz config uses at most 4).
+@for $count from 1 through 8 {
+  .segmented-progress[data-segment-count='#{$count}'] {
+    grid-template-columns: repeat(#{$count}, 1fr);
+  }
+}
+
+.segment {
+  height: 4px;
+  min-width: 0;
+  border-radius: 999px;
+  background: var(--nc-color-border);
+
+  &.active {
+    background: var(--nc-color-primary);
+  }
+}
