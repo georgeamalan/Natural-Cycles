@@ -6,8 +6,8 @@ The quiz works for this case study. Below is what I would change before shipping
 
 Answers are POSTed to webhook.site with `no-cors` (`submission.service.ts`). The app cannot read the
 response, so a failed request can still look like success. I would use our own API with normal error
-handling and retry. The webhook URL is in `environment.ts` and `environment.prod.ts` — it should come
-from build-time env vars instead.
+handling and retry. The webhook URL is in `environment.ts` and `environment.prod.ts` — it should
+come from build-time env vars instead.
 
 ## Data and privacy
 
