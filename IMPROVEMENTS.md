@@ -1,46 +1,43 @@
 # What I would improve before production
 
-## What I am happy with
+The quiz works for this case study. Below is what I would change before shipping it in a real app.
 
-The quiz content and routing live in config (`quiz.config.ts` + `quiz-engine.ts`), so adding
-questions or tracks is mostly a data change. State, persistence, and screen components are
-separated. Core logic has unit tests. There is basic accessibility work (keyboard, ARIA, skip link).
+## Submit
 
-That is enough for a case study. A real app would need more around submission, data, and monitoring.
+Answers are POSTed to webhook.site with `no-cors` (`submission.service.ts`). The app cannot read the
+response, so a failed request can still look like success. I would use our own API with normal error
+handling and retry. The webhook URL is in `environment.ts` and `environment.prod.ts` — it should come
+from build-time env vars instead.
 
-## Must fix before shipping
+## Data and privacy
 
-**Submit flow.** Answers go to webhook.site with `no-cors`. The app cannot tell if the request
-actually succeeded — a failed network call can still look like success. I would use our own API that
-returns a normal HTTP response, show real errors, and support retry. API URLs should come from env
-vars, not committed source files.
+Quiz state is stored in plain `localStorage` (`nc-onboarding-quiz-state`). For a health app I would
+clear client data after submit where it makes sense, keep sensitive fields on the server, and handle
+GDPR and health-data rules properly.
 
-**Privacy.** Answers sit in plain `localStorage`. For a health app I would clear client data after
-submit where possible, keep sensitive fields on the server, and make sure we meet GDPR and any
-health-data rules.
+## Monitoring
 
-**Analytics and errors.** There is no tracking of where users drop off, and errors only go to
-`console.error`. I would add step-level events and something like Sentry for production errors.
+There is no funnel analytics. `GlobalErrorHandler` only logs to the console — nothing is sent to an
+error reporting service.
 
-**Tests and CI.** Engine and state are well tested, but there are no E2E tests and no CI pipeline on
-GitHub — only local git hooks. I would add Playwright for both quiz paths and run lint + tests on
-every PR.
+## Testing and CI
 
-## Smaller fixes worth doing
+There are 53 unit tests across the engine, state, persistence, and config validator. There are no
+component or E2E tests.
 
-- Prune stored answers when the user taps Back, not only when they re-answer.
-- English only today — Natural Cycles needs multiple languages.
-- Support browser back/forward, or at least document that only in-app Back works.
+CI runs on push to `main` via GitHub Actions (typecheck, lint, format check, tests, build, deploy).
+Local git hooks also run tests and build before push. Nothing runs on pull requests unless you push
+to `main`. I would add Playwright for both quiz paths and CI on every PR.
 
-## If the quiz gets much bigger
+## Smaller gaps
 
-More questions and expertise tracks do not require a rewrite. The config-driven engine can grow for
-a while. I would add things step by step:
+- Tapping Back does not prune stored answers — that only happens when you change an answer on an
+  earlier screen.
+- English only (`labels.en.ts`).
+- Only the in-app Back button works — not the browser back button.
 
-1. **CMS** — let content people edit questions without a code deploy.
-2. **New question types** — sliders, dates, etc. via a small plugin registry instead of new
-   components every time.
-3. **Domain split (only when needed)** — if tracks become very different (separate legal copy,
-   rules, and outcomes), split quiz flow, profile/recommendations, and submission into clearer
-   modules. Full DDD only makes sense if multiple teams own those areas — not just because there are
-   more questions.
+## If the quiz grows
+
+The config-driven engine can handle more questions without a rewrite. Longer term I would consider a
+CMS for content, a plugin registry for new question types, and splitting into separate modules only
+if tracks become very different (legal copy, rules, outcomes).
